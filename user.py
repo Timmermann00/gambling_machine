@@ -10,7 +10,7 @@ class User:
 
 
 def read_player_stats(user_name: str):
-    with open("PlayerDatabase.txt") as f:
+    with open("PlayerDatabase.txt", 'w+') as f:
         for line in f:
             data = line.split()
             if data[0] in user_name:
@@ -32,7 +32,7 @@ def write_player_stats(player: User):
     if not player_found:
         lines.append(f"{player.name} {player.balance} {player.wins} {player.losses}\n")
 
-    with open("PlayerDatabase.txt", 'w') as f:
+    with open("PlayerDatabase.txt", 'w+') as f:
         f.writelines(lines)
 
 def handle_player():
