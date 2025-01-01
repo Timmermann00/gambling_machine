@@ -34,3 +34,17 @@ def write_player_stats(player: User):
 
     with open("PlayerDatabase.txt", 'w') as f:
         f.writelines(lines)
+
+def handle_player():
+    while True:
+        username = input("Enter your username: ")
+        player = read_player_stats(username)
+        if player is None:
+            print("There was no user found with your name!")
+            print("Please check you spelling and if you want to continue enter 'y'")
+            choice = input(f"The name you entered was {username} is this correct?: ")
+            if choice == "y":
+                print("A user will be created after you stop the game!")
+                return User(username, 0, 0, 0)
+        else:
+            return player
