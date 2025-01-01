@@ -1,4 +1,5 @@
 import random
+import user
 
 def rand_word_gen():
     resultList = []
@@ -51,16 +52,16 @@ def get_valid_input(prompt, min_value=0):
             print("Invalid input. Please enter a valid number.")
 
 
-def play_game(balance: int, bet: int):
+def play_game(player: user, bet: int):
     resultList = rand_word_gen()
     print_centered(resultList)
     multiplier = define_win_multiplier(resultList)
     if multiplier != 0:
-        balance += bet * multiplier
+        player.wins += 1
+        player.balance += bet * multiplier
     else:
-        balance -= bet
-
-    return balance
+        player.losses += 1
+        player.balance -= bet
 
 
 def print_options() -> int:
@@ -68,7 +69,8 @@ def print_options() -> int:
         1: "Add Balance",
         2: "Play a game",
         3: "Show Balance",
-        4: "Quit"
+        4: "Show Stats",
+        5: "Quit"
     }
 
     print("\nOptions:")
@@ -86,20 +88,27 @@ def print_options() -> int:
             print("Invalid input. Please enter a number.")
 
 
-def handle_choice(choice, balance):
+def handle_choice(player, choice):
     if choice == 1:
-        balance = balance + get_valid_input("Enter the amount you want to add to your account: ")
-        print(f"Your new balance of your account is: {balance}")
+        player.balance = player.balance + get_valid_input("Enter the amount you want to add to your account: ")
+        print(f"Your new balance of your account is: {player.balance}")
+        return 1
     elif choice == 2:
         bet = get_valid_input("How much do you want to bet?: ")
-        if bet > balance:
+        if bet > player.balance:
             print("You dont have enough money to make such a bet!")
+            return 1
         else:
-            balance = play_game(balance, bet)
+            play_game(player, bet)
+            return 1
     elif choice == 3:
-        print(f"Your currently have {balance} in your account!")
+        print(f"Your currently have {player.balance} in your account!")
+        return 1
     elif choice == 4:
+        win_percentage = (player.wins / (player.wins + player.losses)) * 100
+        print(f"You have won {player.wins} and lost {player.losses} thats an overall win percentage of {win_percentage}%")
+        return 1
+    elif choice == 5:
         print("Thanks for playing!")
+        user.write_player_stats(player)
         return None
-
-    return balance

@@ -1,12 +1,11 @@
 import game
-import playerDatabase
+import user
 
-balance = 0
-player = playerDatabase.handle_player()
+player = user.handle_player()
 
 while True:
     choice = game.print_options()
-    balance = game.handle_choice(choice, balance)
+    returnValue = game.handle_choice(player, choice)
     
-    if balance is None:
+    if returnValue is None:
         break
