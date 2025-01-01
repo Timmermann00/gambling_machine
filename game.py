@@ -90,17 +90,14 @@ def handle_choice(choice, balance):
     if choice == 1:
         balance = balance + get_valid_input("Enter the amount you want to add to your account: ")
         print(f"Your new balance of your account is: {balance}")
-
     elif choice == 2:
         bet = get_valid_input("How much do you want to bet?: ")
         if bet > balance:
             print("You dont have enough money to make such a bet!")
         else:
             balance = play_game(balance, bet)
-
     elif choice == 3:
         print(f"Your currently have {balance} in your account!")
-
     elif choice == 4:
         print("Thanks for playing!")
         return None
