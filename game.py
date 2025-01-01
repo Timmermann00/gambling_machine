@@ -105,7 +105,7 @@ def handle_choice(player, choice):
         print(f"Your currently have {player.balance} in your account!")
         return 1
     elif choice == 4:
-        win_percentage = (player.wins / (player.wins + player.losses)) * 100
+        win_percentage = round(((player.wins / (player.wins + player.losses)) * 100), 2)
         print(f"You have won {player.wins} and lost {player.losses} thats an overall win percentage of {win_percentage}%")
         return 1
     elif choice == 5:
