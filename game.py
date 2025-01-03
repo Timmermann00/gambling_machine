@@ -105,8 +105,11 @@ def handle_choice(player, choice):
         print(f"Your currently have {player.balance} in your account!")
         return 1
     elif choice == 4:
-        win_percentage = round(((player.wins / (player.wins + player.losses)) * 100), 2)
-        print(f"You have won {player.wins} and lost {player.losses} thats an overall win percentage of {win_percentage}%")
+        if player.wins is not 0 and player.losses is not 0:
+            win_percentage = round(((player.wins / (player.wins + player.losses)) * 100), 2)
+            print(f"You have won {player.wins} and lost {player.losses} thats an overall win percentage of {win_percentage}%")
+        else:
+            print("Your currently have no stats, please play a game and come back.")
         return 1
     elif choice == 5:
         print("Thanks for playing!")

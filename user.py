@@ -10,16 +10,19 @@ class User:
 
 
 def read_player_stats(user_name: str):
-    with open("PlayerDatabase.txt", 'w+') as f:
-        for line in f:
-            data = line.split()
-            if data[0] in user_name:
-                return User(data[0], data[1], data[2], data[3])
+    f = open("PlayerDatabase.txt", "r")
+    lines = f.readlines()
+    f.close()
+    for line in lines:
+        data = line.split()
+        if data[0] in user_name:
+            return User(data[0], data[1], data[2], data[3])
     return None
 
 def write_player_stats(player: User):
-    with open("PlayerDatabase.txt", 'r') as f:
-        lines = f.readlines()
+    f = open("PlayerDatabase.txt", "r")
+    lines = f.readlines()
+    f.close()
 
     player_found = False
     for i, line in enumerate(lines):
@@ -32,8 +35,9 @@ def write_player_stats(player: User):
     if not player_found:
         lines.append(f"{player.name} {player.balance} {player.wins} {player.losses}\n")
 
-    with open("PlayerDatabase.txt", 'w+') as f:
-        f.writelines(lines)
+    f = open("PlayerDatabase.txt", "w")
+    f.writelines(lines)
+    f.close()
 
 def handle_player():
     while True:
