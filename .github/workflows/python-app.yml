@@ -28,6 +28,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)/gambling_machine" >> $GITHUB_ENV
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -37,9 +39,3 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
-        exit_code=$?
-        if [ $exit_code -eq 5 ]; then 
-          echo "No tests found. Skipping..."
-          exit 0
-        fi
-        exit $exit_code
