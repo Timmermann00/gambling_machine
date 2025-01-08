@@ -1,5 +1,4 @@
-import pytest
-import user
+from gamling_machine import user
 from unittest.mock import patch, mock_open
 
 
