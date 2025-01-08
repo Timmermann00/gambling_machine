@@ -1,4 +1,4 @@
-from gamling_machine import user
+from gambling_machine import user
 from unittest.mock import patch, mock_open
 
 
