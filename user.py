@@ -1,3 +1,5 @@
+import os
+
 class User:
     def __init__(self, name, balance, wins, losses):
         self.name = name
@@ -5,12 +7,23 @@ class User:
         self.wins = int(wins)
         self.losses = int(losses)
 
+    def __eq__(self, other):
+        return (
+                isinstance(other, User) and
+                self.name == other.name and
+                self.balance == other.balance and
+                self.wins == other.wins and
+                self.losses == other.losses
+        )
+
     def __repr__(self):
         return f"User(name={self.name}, balance={self.balance}, wins={self.wins}, losses={self.losses})"
 
 
 def read_player_stats(user_name: str):
-    f = open("PlayerDatabase.txt", "r")
+    current_dir = os.path.dirname(__file__)
+    file_path = os.path.join(current_dir, "PlayerDatabase.txt")
+    f = open(file_path, "r")
     lines = f.readlines()
     f.close()
     for line in lines:
@@ -20,7 +33,9 @@ def read_player_stats(user_name: str):
     return None
 
 def write_player_stats(player: User):
-    f = open("PlayerDatabase.txt", "r")
+    current_dir = os.path.dirname(__file__)
+    file_path = os.path.join(current_dir, "PlayerDatabase.txt")
+    f = open(file_path, "r")
     lines = f.readlines()
     f.close()
 
@@ -35,7 +50,7 @@ def write_player_stats(player: User):
     if not player_found:
         lines.append(f"{player.name} {player.balance} {player.wins} {player.losses}\n")
 
-    f = open("PlayerDatabase.txt", "w")
+    f = open(file_path, "w")
     f.writelines(lines)
     f.close()
 
